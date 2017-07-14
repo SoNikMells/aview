@@ -592,11 +592,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			switch(listitem)
 			{
 				case 0: ShowPlayerDialog(EditID, 19113, DIALOG_STYLE_INPUT, "Speed", "{c4c4c4}Specify speed. Default: 4.1", "Next", "Back");
-				case 1: a_Cycle = a_Cycle ? false : true, ShowSettingDialog();
-				case 2: a_LockPos = a_LockPos ? false : true, ShowSettingDialog();
-				case 3: a_Freeze = a_Freeze ? false : true, ShowSettingDialog();
+				case 1: a_Cycle ^= true, ShowSettingDialog();
+				case 2: a_LockPos ^= true, ShowSettingDialog();
+				case 3: a_Freeze ^= true, ShowSettingDialog();
 				case 4: ShowPlayerDialog(EditID, 19114, DIALOG_STYLE_INPUT, "Time", "{c4c4c4}Specify time. Default: 0", "Next", "Back");
-				case 5: a_Forcesync = a_Forcesync ? false : true, ShowSettingDialog();
+				case 5: a_Forcesync ^= true, ShowSettingDialog();
 			}
 			ClearAnimations(EditID, a_Forcesync);
 		}
@@ -630,9 +630,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 }
 forward cmd_anim(playerid); public cmd_anim(playerid) // Other command processor
 {
-	new string[16];
-	GetPlayerIp(playerid, string, 16);
-	if(EditID == INVALID_PLAYER_ID && !strcmp(string, "127.0.0.1", false))
+	if(EditID == INVALID_PLAYER_ID)
 	{
 		EditID = playerid;
 		a_Speed = 4.101;
